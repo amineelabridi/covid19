@@ -1,0 +1,182 @@
+<div class="row">
+    <div class="col-sm-6 mb-5">
+      <h3 class="font-italic text-info">Welcome {{ user.displayName }}</h3>
+    </div>
+    <div class="col-sm-6 text-right">
+      <button class="btn btn-danger" (click)="covidService.signOut()">
+        Sign Out
+      </button>
+    </div>
+  </div>
+
+<div class="text-center">
+    <div class="mb-5">
+        <h1>Covid-19 Worldwide live updates and statistics</h1>
+        <img
+            class = "mb-5"
+            style="width: 30%"
+            src="https://firebasestorage.googleapis.com/v0/b/covid-d6ef4.appspot.com/o/covid%20logo.jpg?alt=media&token=3d28289e-8ac8-4ee2-b983-353b967fef18"
+            alt=""
+        />
+    </div>
+</div>
+
+<div class="mb-5">
+  <h5 class=" d-block p-3 bg-light mb-2">
+    <th class="d-inline ml-3">Corona Virus Summary Worldwide</th>
+  </h5>
+  <table class="table table-bordered table-striped table-hover">
+    <tbody>
+      <tr class="table-warning">
+        <th colspan="2" >Total Cases</th>
+        <th colspan="2" class="text-right"> {{covidService.worldwide.totalCases}} </th>
+      </tr>
+      <tr class="table-warning">
+        <th colspan="2" >New Cases</th>
+        <th colspan="2" class="text-right">{{covidService.worldwide.newCases}}</th>
+      </tr>
+      <tr class="table-warning">
+        <th colspan="2" >Active Cases</th>
+        <th colspan="2" class="text-right">{{covidService.worldwide.activeCases}}</th>
+      </tr>
+      <tr class="table-info">
+        <th colspan="2" >Total Recovered</th>
+        <th colspan="2" class="text-right">{{covidService.worldwide.totalRecovered}}</th>
+      </tr>
+      <tr class="table-info">
+        <th colspan="2" >New Recovered</th>
+        <th colspan="2" class="text-right">{{covidService.worldwide.newRecovered}}</th>
+      </tr>
+      <tr class="table-info">
+        <th colspan="2" >Recovery rate</th>
+        <th colspan="2" class="text-right">{{covidService.worldwide.recoveryRate.toFixed(2)}}%</th>
+      </tr>
+      <tr class="table-danger">
+        <th colspan="2" >Total Deaths</th>
+        <th colspan="2" class="text-right">{{covidService.worldwide.totalDeaths}}</th>
+      </tr>
+      <tr class="table-danger">
+        <th colspan="2" >New Deaths</th>
+        <th colspan="2" class="text-right">{{covidService.worldwide.newDeaths}}</th>
+      </tr>
+      <tr class="table-danger">
+        <th colspan="2" >Mortality Rate</th>
+        <th colspan="2" class="text-right">{{covidService.worldwide.mortalityRate.toFixed(2)}}%</th>
+      </tr>
+    </tbody>
+
+  </table>
+</div>
+
+<div class="mb-5">
+  <h5 class="d-block p-3 bg-light mb-2">
+    <th class="d-inline ml-3">Corona Virus Cases Distribution Worldwide</th>
+  </h5>
+  <div style="display: block">
+    <canvas baseChart
+      [data]= covidService.world_pie_data
+      [labels]="pieChartLabels"
+      [chartType]="pieChartType"
+      [options]="pieChartOptions"
+      [plugins]="pieChartPlugins"
+      [legend]="pieChartLegend"
+      [colors]="pieChartColors">
+    </canvas>
+  </div>
+</div>
+
+<div class="mb-5">
+  <h5 class="d-block p-3 bg-light mb-2">
+    <th class="d-inline ml-3">Daily Corona Virus Cases Worldwide</th>
+  </h5>
+  <div style="display: block;">
+    <canvas baseChart
+      [datasets]=covidService.world_bar_data
+      [labels]= covidService.world_bar_label
+      [options]="barChartOptions"
+      [plugins]="barChartPlugins"
+      [legend]="barChartLegend"
+      [chartType]="barChartType">
+    </canvas>
+  </div>
+</div>
+
+<div class="mb-5">
+  <h5 class="d-block p-3 bg-light mb-2">
+    <th class="d-inline ml-3">Total Corona Virus Cases Worldwide</th>
+  </h5>
+  <div style="display: block;">
+    <canvas baseChart width="400" height="400"
+      [datasets]=covidService.world_chart_data
+      [labels]=covidService.world_chart_label
+      [options]="lineChartOptions"
+      [legend]="lineChartLegend"
+      [chartType]="lineChartType"
+      [plugins]="lineChartPlugins">
+    </canvas>
+  </div>
+</div>
+
+<div class="mb-5">
+  <h5 class="d-block p-3 bg-light mb-2">
+    <th class="d-inline ml-3">Corona Virus Cases by Country</th>
+  </h5>
+  <table class="table table-bordered table-striped table-hover">
+    <thead style="text-align: center;">
+      <tr>
+        <th class="table-dark">Country</th>
+        <th class="table-warning">New Cases</th>
+        <th class="table-warning">Total Cases</th>
+        <th class="table-info">New Recoveries</th>
+        <th class="table-info">Total Recoveries</th>
+        <th class="table-danger">New Deaths</th>
+        <th class="table-danger">Total Deaths</th>
+      </tr>
+    </thead>
+
+    <tbody *ngFor="let country of covidService.country">
+      <td class="table-dark text-primary" (click) = "covidService.GoToCountryURL(country.Country)" >
+        {{ country.Country }}
+      </td>
+      <td class="table-warning">{{ country.NewCases }}</td>
+      <td class="table-warning">{{ country.TotalCases }}</td>
+      <td class="table-info">{{ country.NewRecovered }}</td>
+      <td class="table-info">{{ country.TotalRecovered }}</td>
+      <td class="table-danger">{{ country.NewDeaths }}</td>
+      <td class="table-danger">{{ country.TotalDeaths }}</td>
+
+    </tbody>
+
+  </table>
+</div>
+
+<div>
+  <h5 class="d-block p-3 bg-light mb-2">
+    <th class="d-inline ml-3">Worldwide and country COVID-19 related news</th>
+  </h5>
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>Country</th>
+        <th>description</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let news of news">
+        <td>{{ news.country }}</td>
+        <td>{{ news.description }}</td>
+        <td>{{ news.date.toDate() | date }}</td>
+      </tr>
+    </tbody>
+  </table> 
+</div>
+
+<footer class="row bg-light justify-content-center ma-5 mb-5">
+    <div class= "mr-1">Data Source: </div>
+    <a href="https://covid19api.com"> COVID-19 API / Johns Hopkins CSSE</a>
+</footer>
+
+<div *ngIf="covidService.isAdmin">
+  <app-add-news></app-add-news>
+</div>

@@ -1,0 +1,49 @@
+<div class="row">
+    <div class="col-sm-6 mb-5 ma-5">
+      <h3 class="font-italic text-info">Welcome administrator {{ user.displayName }}</h3>
+    </div>
+  </div>
+
+<h4 class="ma-5">You can Add News in the table below</h4>
+<form (ngSubmit)="addNews()">
+  <div class="row mb-3">
+    <div class="col-md-6">
+        <label for="dateInput">date</label>
+        <input
+          type="date"
+          id="dateInput"
+          name="dateInput"
+          class="form-control"
+          [(ngModel)]="date"
+          required
+        />
+      </div>
+    <div class="col-md-6">
+      <label for="countryInput">country</label>
+      <input
+        type="text"
+        id="countryInput"
+        name="countryInput"
+        class="form-control"
+        placeholder="Enter the name of the Country, or 'worldwide' for world related news"
+        [(ngModel)]="country"
+        required
+      />
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-12">
+      <label for="descriptionInput">description</label>
+      <input
+        type="text"
+        id="descriptionInput"
+        name="descriptionInput"
+        class="form-control"
+        placeholder="Write the description of the country?"
+        [(ngModel)]="description"
+        required
+      />
+    </div>
+  </div>
+  <button class="btn btn-primary">Add</button>
+</form>
