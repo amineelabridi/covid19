@@ -1,5 +1,5 @@
 # Covid19
-A web application with live updates and statistics of COVID-19 (worldwide and per country).
+A web application with live updates and statistics of COVID-19 (worldwide and per country).<br/>
 Link to the web application: https://covid-d6ef4.web.app/worldwide
 
 
