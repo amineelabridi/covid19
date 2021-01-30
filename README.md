@@ -1,4 +1,7 @@
 # Covid19
+A web application with live updates and statistics of COVID-19 (wordlwide and per country).
+Link to the web application: https://covid-d6ef4.web.app/worldwide
+
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.2.
 
